@@ -28,7 +28,7 @@ import time
 import numpy as np
 import pandas as pd
 import plotly.express as px
-
+from utilities import timer
 # -
 
 # target file or table names
@@ -40,23 +40,6 @@ sqlite_tbl_name = "tbl_example"
 # remove any existing prior work
 for filename in [csv_name, parquet_name, sqlite_name]:
     pathlib.Path(filename).unlink(missing_ok=True)
-
-
-def timer(func, *args, **kwargs):
-    """
-    A timer function which runs a function and related arguments
-    to return the total time in seconds which were taken for completion.
-    """
-
-    # find the start time
-    start_time = time.time()
-
-    # run the function with given args
-    func(*args, **kwargs)
-
-    # return the current time minus the start time
-    return time.time() - start_time
-
 
 # +
 # starting rowcount and col count
