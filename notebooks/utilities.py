@@ -2,10 +2,10 @@
 Utilities for running various benchmarks.
 """
 import time
-from typing import Callable
+from typing import Callable, Optional
 
 
-def timer(func: Callable, method_chain=None, *args, **kwargs) -> int:
+def timer(func: Callable, method_chain: Optional[str] = None, *args, **kwargs) -> float:
     """
     A timer function which runs a function and related arguments
     to return the total time in seconds which were taken for completion.

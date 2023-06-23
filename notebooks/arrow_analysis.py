@@ -21,9 +21,7 @@
 # %flow mode reactive
 
 # +
-import os
 import pathlib
-import time
 
 import duckdb
 import numpy as np
@@ -31,9 +29,10 @@ import pandas as pd
 import plotly.express as px
 import polars as pl
 import pyarrow as pa
-import pyarrow.parquet as parquet
+from pyarrow import parquet
 from pympler.asizeof import asizeof
 from utilities import timer
+
 # -
 
 # target file or table names

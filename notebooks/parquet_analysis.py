@@ -23,12 +23,12 @@
 # +
 import os
 import pathlib
-import time
 
 import numpy as np
 import pandas as pd
 import plotly.express as px
 from utilities import timer
+
 # -
 
 # target file or table names
