@@ -28,6 +28,7 @@ import time
 import numpy as np
 import pandas as pd
 import plotly.express as px
+
 # -
 
 # target file or table names
@@ -68,7 +69,6 @@ results = []
 # loop for iterating over increasingly large dataframes
 # and gathering data about operations on them
 for _ in range(1, 9):
-    
     # increase the size of the dataframe
     nrows *= 2
     ncols *= 2
@@ -130,7 +130,7 @@ for _ in range(1, 9):
     for filename in [csv_name, parquet_name, sqlite_name]:
         pathlib.Path(filename).unlink(missing_ok=True)
 
-    
+
 df_results = pd.DataFrame(results)
 df_results
 # -
@@ -198,5 +198,3 @@ fig = px.bar(
     title="How long are read times for different formats? (one column)",
 )
 fig.show()
-
-

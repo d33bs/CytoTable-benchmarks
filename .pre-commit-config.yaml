@@ -17,7 +17,7 @@ repos:
       - id: codespell
         exclude: >
               (?x)^(
-                  .*\.lock|.*\.csv
+                  .*\.lock|.*\.csv|.*\.ipynb
               )$
         additional_dependencies:
           - tomli
@@ -30,7 +30,6 @@ repos:
     hooks:
       - id: nbqa-black
       - id: nbqa-isort
-      - id: nbqa-mypy
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
@@ -59,3 +58,8 @@ repos:
         entry: pylint
         language: python
         types: [python]
+        args: ["--disable=W0104,C0114,C0301,C0103"]
+        additional_dependencies:
+            - "numpy"
+            - "pandas"
+            - "plotly"
