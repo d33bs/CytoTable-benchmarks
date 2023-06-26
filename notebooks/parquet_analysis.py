@@ -132,7 +132,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
-    color_discrete_sequence=px.colors.qualitative.D3
+    color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
     legend=dict(x=0.68, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
@@ -158,7 +158,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Bytes"},
     width=1300,
-    color_discrete_sequence=px.colors.qualitative.D3
+    color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
     legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
@@ -172,26 +172,26 @@ pio.write_image(fig, f"{image_dir}/file-storage-size.png")
 
 # +
 # read time barchart (all columns)
-fig = px.bar(
+fig = px.line(
     df_results,
-    x=[
+    y=[
         "csv_read_time_all (secs)",
         "sqlite_read_time_all (secs)",
         "parquet_read_time_all (secs)",
     ],
-    y="dataframe_shape (rows, cols)",
-    orientation="h",
-    barmode="group",
+    x="dataframe_shape (rows, cols)",
+
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
-    color_discrete_sequence=px.colors.qualitative.D3
+    color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
-    legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    legend=dict(x=0.01, y=0.98, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size
     ),
 )
+fig.update_xaxes(range=[0, 2.13])
 
 pio.write_image(fig, f"{image_dir}/file-read-time-all.png")
 fig.show()
@@ -210,7 +210,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
-    color_discrete_sequence=px.colors.qualitative.D3
+    color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
     legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
