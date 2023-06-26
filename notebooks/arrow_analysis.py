@@ -33,6 +33,7 @@ import pyarrow as pa
 from pyarrow import parquet
 from pympler.asizeof import asizeof
 from utilities import timer
+
 # -
 
 # target file or table names

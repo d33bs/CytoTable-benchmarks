@@ -29,6 +29,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 from utilities import timer
+
 # -
 
 # target file or table names
@@ -180,7 +181,6 @@ fig = px.line(
         "parquet_read_time_all (secs)",
     ],
     x="dataframe_shape (rows, cols)",
-
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
