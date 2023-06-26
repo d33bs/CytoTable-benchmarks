@@ -132,6 +132,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
+    color_discrete_sequence=px.colors.qualitative.D3
 )
 fig.update_layout(
     legend=dict(x=0.68, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
@@ -157,6 +158,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Bytes"},
     width=1300,
+    color_discrete_sequence=px.colors.qualitative.D3
 )
 fig.update_layout(
     legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
@@ -182,6 +184,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
+    color_discrete_sequence=px.colors.qualitative.D3
 )
 fig.update_layout(
     legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
@@ -207,6 +210,7 @@ fig = px.bar(
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
     width=1300,
+    color_discrete_sequence=px.colors.qualitative.D3
 )
 fig.update_layout(
     legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
