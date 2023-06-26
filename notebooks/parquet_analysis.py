@@ -27,11 +27,12 @@ import pathlib
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.io as pio
 from utilities import timer
-
 # -
 
 # target file or table names
+image_dir = "images"
 csv_name = "example.csv.gz"
 parquet_name = "example.parquet"
 sqlite_name = "example.sqlite"
@@ -43,15 +44,15 @@ for filename in [csv_name, parquet_name, sqlite_name]:
 
 # +
 # starting rowcount and col count
-nrows = 10
-ncols = 5
+nrows = 320
+ncols = 160
 
 # result list for storing data
 results = []
 
 # loop for iterating over increasingly large dataframes
 # and gathering data about operations on them
-for _ in range(1, 9):
+for _ in range(1, 4):
     # increase the size of the dataframe
     nrows *= 2
     ncols *= 2
@@ -116,8 +117,8 @@ for _ in range(1, 9):
 
 df_results = pd.DataFrame(results)
 df_results
-# -
 
+# +
 # write times barchart
 fig = px.bar(
     df_results,
@@ -130,10 +131,19 @@ fig = px.bar(
     orientation="h",
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
-    title="How long are write times for different formats?",
+    width=1300,
+)
+fig.update_layout(
+    legend=dict(x=0.68, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    font=dict(
+        size=20,  # global font size
+    ),
 )
 fig.show()
 
+pio.write_image(fig, f"{image_dir}/file-write-time.png")
+
+# +
 # filesize barchart
 fig = px.bar(
     df_results,
@@ -146,10 +156,19 @@ fig = px.bar(
     orientation="h",
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Bytes"},
-    title="What is the storage size for different formats?",
+    width=1300,
+)
+fig.update_layout(
+    legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    font=dict(
+        size=20,  # global font size
+    ),
 )
 fig.show()
 
+pio.write_image(fig, f"{image_dir}/file-storage-size.png")
+
+# +
 # read time barchart (all columns)
 fig = px.bar(
     df_results,
@@ -162,10 +181,19 @@ fig = px.bar(
     orientation="h",
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
-    title="How long are read times for different formats? (all columns)",
+    width=1300,
 )
+fig.update_layout(
+    legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    font=dict(
+        size=20,  # global font size
+    ),
+)
+
+pio.write_image(fig, f"{image_dir}/file-read-time-all.png")
 fig.show()
 
+# +
 # read time barchart (one column)
 fig = px.bar(
     df_results,
@@ -178,6 +206,14 @@ fig = px.bar(
     orientation="h",
     barmode="group",
     labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
-    title="How long are read times for different formats? (one column)",
+    width=1300,
 )
+fig.update_layout(
+    legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    font=dict(
+        size=20,  # global font size
+    ),
+)
+
+pio.write_image(fig, f"{image_dir}/file-read-time-one.png")
 fig.show()

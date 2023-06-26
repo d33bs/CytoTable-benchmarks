@@ -24,6 +24,7 @@ pympler = "^1.0.1"
 pyarrow = "<=12.0.0"
 duckdb = "<=0.7.1"
 polars = "^0.18.4"
+kaleido = "0.2.1"
 
 
 [build-system]
