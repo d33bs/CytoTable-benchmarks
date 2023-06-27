@@ -130,7 +130,7 @@ fig = px.bar(
     y="dataframe_shape (rows, cols)",
     orientation="h",
     barmode="group",
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
 )
@@ -156,7 +156,7 @@ fig = px.bar(
     y="dataframe_shape (rows, cols)",
     orientation="h",
     barmode="group",
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Bytes"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Bytes"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
 )
@@ -181,7 +181,7 @@ fig = px.line(
     ],
     x="dataframe_shape (rows, cols)",
 
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
 )
@@ -209,7 +209,7 @@ fig = px.bar(
     y="dataframe_shape (rows, cols)",
     orientation="h",
     barmode="group",
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
 )

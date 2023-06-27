@@ -54,29 +54,6 @@ def download_file(url, filename):
 download_file(url, orig_filepath)
 
 
-# ```sql
-# WITH Per_Image_Filtered AS (
-#     SELECT
-#         Metadata_ImageNumber,
-#         Image_Metadata_Well,
-#         Image_Metadata_Plate
-#     FROM
-#         read_parquet('per_image.parquet')
-#     )
-# SELECT
-#     *
-# FROM
-#     Per_Image_Filtered AS per_image
-# LEFT JOIN read_parquet('per_cytoplasm.parquet') AS per_cytoplasm ON
-#     per_cytoplasm.Metadata_ImageNumber = per_image.Metadata_ImageNumber
-# LEFT JOIN read_parquet('per_cells.parquet') AS per_cells ON
-#     per_cells.Metadata_ImageNumber = per_cytoplasm.Metadata_ImageNumber
-#     AND per_cells.Metadata_Cells_Number_Object_Number = per_cytoplasm.Metadata_Cytoplasm_Parent_Cells
-# LEFT JOIN read_parquet('per_nuclei.parquet') AS per_nuclei ON
-#     per_nuclei.Metadata_ImageNumber = per_cytoplasm.Metadata_ImageNumber
-#     AND per_nuclei.Metadata_Nuclei_Number_Object_Number = per_cytoplasm.Metadata_Cytoplasm_Parent_Nuclei
-# ```
-
 def double_database_size(filename: str) -> str:
     """
     A function for doubling the size of the database given a filename.
@@ -141,4 +118,18 @@ quadrupled_file
 
 double_database_size(filename=quadrupled_file)
 
+# # copy the original with new name
+octupled_file = shutil.copy(
+    quadrupled_file, orig_filepath.replace(".sqlite", "-x8.sqlite")
+)
+octupled_file
 
+double_database_size(filename=octupled_file)
+
+# # copy the original with new name
+hexadecupled_file = shutil.copy(
+    octupled_file, orig_filepath.replace(".sqlite", "-x16.sqlite")
+)
+hexadecupled_file
+
+double_database_size(filename=hexadecupled_file)

@@ -33,7 +33,6 @@ import pyarrow as pa
 from pyarrow import parquet
 from pympler.asizeof import asizeof
 from utilities import timer
-
 # -
 
 # target file or table names
@@ -104,7 +103,7 @@ fig = px.bar(
     y="dataframe_shape (rows, cols)",
     orientation="h",
     barmode="group",
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Seconds"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
 )
 fig.update_layout(
@@ -130,7 +129,7 @@ fig = px.bar(
     y="dataframe_shape (rows, cols)",
     orientation="h",
     barmode="group",
-    labels={"dataframe_shape (rows, cols)": "DataFrame Shape", "value": "Bytes"},
+    labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Bytes"},
     width=1300,
 )
 fig.update_layout(
