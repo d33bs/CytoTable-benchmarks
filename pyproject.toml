@@ -26,7 +26,6 @@ duckdb = "<=0.7.1"
 polars = "^0.18.4"
 kaleido = "0.2.1"
 memray = "^1.8.1"
-radon = "^6.0.1"
 
 
 [build-system]

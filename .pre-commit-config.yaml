@@ -43,9 +43,11 @@ repos:
     hooks:
       - id: isort
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.4.0
+    rev: v1.4.1
     hooks:
       - id: mypy
+        additional_dependencies:
+          - "types-requests"
   - repo: https://github.com/PyCQA/pylint
     rev: v3.0.0a6
     hooks:
@@ -54,7 +56,7 @@ repos:
         entry: pylint
         language: python
         types: [python]
-        args: ["--disable=W0104,C0114,C0301,C0103"]
+        args: ["--disable=W0104,C0114,C0301,C0103,R1735,R0801,W1113", "--extension-pkg-whitelist=duckdb"]
         additional_dependencies:
             - "numpy"
             - "pandas"
@@ -63,3 +65,4 @@ repos:
             - "polars"
             - "duckdb"
             - "pympler"
+            - "requests"

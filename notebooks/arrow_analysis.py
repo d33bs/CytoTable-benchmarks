@@ -23,16 +23,15 @@
 # +
 import pathlib
 
-import duckdb
 import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 import polars as pl
-import pyarrow as pa
 from pyarrow import parquet
 from pympler.asizeof import asizeof
 from utilities import timer
+
 # -
 
 # target file or table names

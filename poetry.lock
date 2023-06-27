@@ -2160,24 +2160,6 @@ files = [
 ]
 
 [[package]]
-name = "mando"
-version = "0.7.1"
-description = "Create Python CLI apps with little to no effort at all!"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "mando-0.7.1-py2.py3-none-any.whl", hash = "sha256:26ef1d70928b6057ee3ca12583d73c63e05c49de8972d620c278a7b206581a8a"},
-    {file = "mando-0.7.1.tar.gz", hash = "sha256:18baa999b4b613faefb00eac4efadcf14f510b59b924b66e08289aa1de8c3500"},
-]
-
-[package.dependencies]
-six = "*"
-
-[package.extras]
-restructuredtext = ["rst2ansi"]
-
-[[package]]
 name = "markdown-it-py"
 version = "2.2.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
@@ -3620,25 +3602,6 @@ packaging = "*"
 test = ["pytest (>=6,!=7.0.0,!=7.0.1)", "pytest-cov (>=3.0.0)", "pytest-qt"]
 
 [[package]]
-name = "radon"
-version = "6.0.1"
-description = "Code Metrics in Python"
-category = "main"
-optional = false
-python-versions = "*"
-files = [
-    {file = "radon-6.0.1-py2.py3-none-any.whl", hash = "sha256:632cc032364a6f8bb1010a2f6a12d0f14bc7e5ede76585ef29dc0cecf4cd8859"},
-    {file = "radon-6.0.1.tar.gz", hash = "sha256:d1ac0053943a893878940fedc8b19ace70386fc9c9bf0a09229a44125ebf45b5"},
-]
-
-[package.dependencies]
-colorama = {version = ">=0.4.1", markers = "python_version > \"3.4\""}
-mando = ">=0.6,<0.8"
-
-[package.extras]
-toml = ["tomli (>=2.0.1)"]
-
-[[package]]
 name = "requests"
 version = "2.31.0"
 description = "Python HTTP for Humans."
@@ -4427,4 +4390,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9.0,<3.11.0"
-content-hash = "0d12ca11c6d02b2b30ad26c12babc04f81328623b1b02da132ec6c933226c09f"
+content-hash = "0575b9e7db731000fad66b952b86fad93b9d35b4e2eb16142c0f3a06bb39d25c"

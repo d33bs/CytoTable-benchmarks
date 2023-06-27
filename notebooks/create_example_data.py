@@ -25,21 +25,24 @@ import pathlib
 import shutil
 import sqlite3
 
-import pandas as pd
 import requests
+
 # -
 
 url = "https://github.com/cytomining/CytoTable/blob/main/tests/data/cellprofiler/NF1_SchwannCell_data/all_cellprofiler.sqlite?raw=true"
 orig_filepath = "./examples/data/all_cellprofiler.sqlite"
 
 
-def download_file(url, filename):
+def download_file(urlstr, filename):
+    """
+    Download a file given a string url
+    """
     if pathlib.Path(filename).exists():
         print("We already have downloaded the file!")
         return
 
     # Send a HTTP request to the URL of the file you want to access
-    response = requests.get(url)
+    response = requests.get(urlstr, timeout=30)
 
     # Check if the request was successful
     if response.status_code == 200:
@@ -54,7 +57,7 @@ def download_file(url, filename):
 download_file(url, orig_filepath)
 
 
-def double_database_size(filename: str) -> str:
+def double_database_size(filename: str):
     """
     A function for doubling the size of the database given a filename.
     Note: unique to CellProfiler SQLite output and accounts for

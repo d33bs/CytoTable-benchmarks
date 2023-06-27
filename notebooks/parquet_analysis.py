@@ -29,6 +29,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 from utilities import timer
+
 # -
 
 # target file or table names
@@ -180,7 +181,6 @@ fig = px.line(
         "parquet_read_time_all (secs)",
     ],
     x="dataframe_shape (rows, cols)",
-
     labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
@@ -192,7 +192,7 @@ fig.update_layout(
     ),
 )
 fig.update_xaxes(range=[0, 2.13])
-fig.update_traces(mode='lines+markers')
+fig.update_traces(mode="lines+markers")
 
 pio.write_image(fig, f"{image_dir}/file-read-time-all.png")
 fig.show()
