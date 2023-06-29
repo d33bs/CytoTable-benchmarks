@@ -13,9 +13,9 @@
 #     name: ipyflow
 # ---
 
-# # Why arrow?
+# # Why Arrow?
 #
-# This notebook explores the benefits or drawbacks of using the [arrow](https://arrow.apache.org) in-memory data format relative to other formats such as Pandas DataFrames.
+# This notebook explores the benefits or drawbacks of using the [Arrow](https://arrow.apache.org) in-memory data format relative to other formats such as Pandas DataFrames.
 
 # set ipyflow reactive mode
 # %flow mode reactive
@@ -28,10 +28,10 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 import polars as pl
+from IPython.display import Image
 from pyarrow import parquet
 from pympler.asizeof import asizeof
 from utilities import timer
-
 # -
 
 # target file or table names
@@ -111,9 +111,9 @@ fig.update_layout(
         size=17.5,  # global font size
     ),
 )
-fig.show()
 
 pio.write_image(fig, f"{image_dir}/mem-read-times.png")
+Image(url=f"{image_dir}/mem-read-times.png")
 
 
 # +
@@ -137,6 +137,6 @@ fig.update_layout(
         size=20,  # global font size
     ),
 )
-fig.show()
 
 pio.write_image(fig, f"{image_dir}/mem-read-size.png")
+Image(url=f"{image_dir}/mem-read-size.png")

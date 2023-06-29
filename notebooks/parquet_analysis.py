@@ -28,8 +28,8 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.io as pio
+from IPython.display import Image
 from utilities import timer
-
 # -
 
 # target file or table names
@@ -141,9 +141,9 @@ fig.update_layout(
         size=20,  # global font size
     ),
 )
-fig.show()
 
 pio.write_image(fig, f"{image_dir}/file-write-time.png")
+Image(url=f"{image_dir}/file-write-time.png")
 
 # +
 # filesize barchart
@@ -167,9 +167,9 @@ fig.update_layout(
         size=20,  # global font size
     ),
 )
-fig.show()
 
 pio.write_image(fig, f"{image_dir}/file-storage-size.png")
+Image(url=f"{image_dir}/file-storage-size.png")
 
 # +
 # read time barchart (all columns)
@@ -195,7 +195,7 @@ fig.update_xaxes(range=[0, 2.13])
 fig.update_traces(mode="lines+markers")
 
 pio.write_image(fig, f"{image_dir}/file-read-time-all.png")
-fig.show()
+Image(url=f"{image_dir}/file-read-time-all.png")
 
 # +
 # read time barchart (one column)
@@ -221,4 +221,4 @@ fig.update_layout(
 )
 
 pio.write_image(fig, f"{image_dir}/file-read-time-one.png")
-fig.show()
+Image(url=f"{image_dir}/file-read-time-one.png")

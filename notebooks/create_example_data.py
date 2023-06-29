@@ -26,32 +26,11 @@ import shutil
 import sqlite3
 
 import requests
-
+from utilities import download_file
 # -
 
 url = "https://github.com/cytomining/CytoTable/blob/main/tests/data/cellprofiler/NF1_SchwannCell_data/all_cellprofiler.sqlite?raw=true"
 orig_filepath = "./examples/data/all_cellprofiler.sqlite"
-
-
-def download_file(urlstr, filename):
-    """
-    Download a file given a string url
-    """
-    if pathlib.Path(filename).exists():
-        print("We already have downloaded the file!")
-        return
-
-    # Send a HTTP request to the URL of the file you want to access
-    response = requests.get(urlstr, timeout=30)
-
-    # Check if the request was successful
-    if response.status_code == 200:
-        with open(filename, "wb") as file:
-            # Write the contents of the response to a file
-            file.write(response.content)
-    else:
-        print(f"Failed to download file, status code: {response.status_code}")
-
 
 # download the original file
 download_file(url, orig_filepath)
@@ -105,34 +84,13 @@ def double_database_size(filename: str):
             )
 
 
-# # copy the original with new name
-doubled_file = shutil.copy(
-    orig_filepath, orig_filepath.replace(".sqlite", "-x2.sqlite")
-)
-doubled_file
-
-double_database_size(filename=doubled_file)
-
-# # copy the original with new name
-quadrupled_file = shutil.copy(
-    doubled_file, orig_filepath.replace(".sqlite", "-x4.sqlite")
-)
-quadrupled_file
-
-double_database_size(filename=quadrupled_file)
-
-# # copy the original with new name
-octupled_file = shutil.copy(
-    quadrupled_file, orig_filepath.replace(".sqlite", "-x8.sqlite")
-)
-octupled_file
-
-double_database_size(filename=octupled_file)
-
-# # copy the original with new name
-hexadecupled_file = shutil.copy(
-    octupled_file, orig_filepath.replace(".sqlite", "-x16.sqlite")
-)
-hexadecupled_file
-
-double_database_size(filename=hexadecupled_file)
+# loop through 5 times, copying the database and
+# doubling the database size each time
+number = 2
+previous_filepath = orig_filepath
+for _ in range(0, 5):
+    new_filepath = orig_filepath.replace(".sqlite", f"-x{number}.sqlite")
+    shutil.copy(previous_filepath, new_filepath)
+    double_database_size(filename=new_filepath)
+    previous_filepath = new_filepath
+    number *= 2
