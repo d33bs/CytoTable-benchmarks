@@ -38,6 +38,8 @@ from IPython.display import Image
 # target file or table names
 image_dir = "images"
 examples_dir = "examples"
+join_read_time_image = f"{image_dir}/join-read-time.png"
+join_mem_size_image = f"{image_dir}/join-memory-size.png"
 example_files_list = [
     f"{examples_dir}/join_pandas.py",
     f"{examples_dir}/join_duckdb.py",
@@ -120,6 +122,9 @@ df_results = pd.DataFrame(results)
 df_results
 # -
 
+df_results["data_input_renamed"] = df_results["data_input"].str.replace(
+    "all_cellprofiler", "input"
+)
 df_results["pandas_time_duration (secs)"] = df_results[
     df_results["file_input"] == "join_pandas.py"
 ]["time_duration (secs)"]
@@ -147,22 +152,22 @@ fig = px.line(
         "pandas_time_duration (secs)",
         "duckdb_time_duration (secs)",
     ],
-    x="data_input",
-    labels={"data_input": "Input File", "value": "Seconds"},
+    x="data_input_renamed",
+    labels={"data_input_renamed": "Input File", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.T10,
 )
 fig.update_layout(
     legend=dict(x=0.01, y=0.98, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
-        size=16,  # global font size
+        size=20,  # global font size
     ),
 )
-fig.update_xaxes(range=[-0.05, 5.5])
+fig.update_xaxes(range=[-0.03, 5.2])
 fig.update_traces(mode="lines+markers")
 
-pio.write_image(fig, f"{image_dir}/join-read-time.png")
-Image(url=f"{image_dir}/join-read-time.png")
+pio.write_image(fig, join_read_time_image)
+Image(url=join_read_time_image)
 
 # +
 # memory size
@@ -172,8 +177,8 @@ fig = px.bar(
         "pandas_total_memory (bytes)",
         "duckdb_total_memory (bytes)",
     ],
-    y="data_input",
-    labels={"data_input": "Input File", "value": "Bytes"},
+    y="data_input_renamed",
+    labels={"data_input_renamed": "Input File", "value": "Bytes"},
     orientation="h",
     barmode="group",
     width=1300,
@@ -186,5 +191,5 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/join-memory-size.png")
-Image(url=f"{image_dir}/join-memory-size.png")
+pio.write_image(fig, join_mem_size_image)
+Image(url=join_mem_size_image)

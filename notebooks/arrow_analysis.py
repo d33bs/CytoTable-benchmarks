@@ -37,6 +37,8 @@ from utilities import timer
 # target file or table names
 image_dir = "images"
 parquet_name = "example.parquet"
+mem_times_image = f"{image_dir}/mem-read-times.png"
+mem_read_size_image = f"{image_dir}/mem-read-size.png"
 
 # remove any existing prior work
 pathlib.Path(parquet_name).unlink(missing_ok=True)
@@ -112,8 +114,8 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/mem-read-times.png")
-Image(url=f"{image_dir}/mem-read-times.png")
+pio.write_image(fig, mem_times_image)
+Image(url=mem_times_image)
 
 
 # +
@@ -138,5 +140,5 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/mem-read-size.png")
-Image(url=f"{image_dir}/mem-read-size.png")
+pio.write_image(fig, mem_read_size_image)
+Image(url=mem_read_size_image)

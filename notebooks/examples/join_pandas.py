@@ -1,3 +1,7 @@
+"""
+An example using pandas to join input data from an argument.
+"""
+
 import sys
 
 import pandas as pd

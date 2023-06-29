@@ -1,5 +1,9 @@
 import sys
 
+"""
+An example using duckdb to join input data from an argument.
+"""
+
 import duckdb
 
 # take an input from sys argsv

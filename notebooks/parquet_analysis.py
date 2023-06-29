@@ -38,6 +38,10 @@ csv_name = "example.csv.gz"
 parquet_name = "example.parquet"
 sqlite_name = "example.sqlite"
 sqlite_tbl_name = "tbl_example"
+file_write_time_image = f"{image_dir}/file-write-time.png"
+file_storage_size_image = f"{image_dir}/file-storage-size.png"
+file_read_time_all_image = f"{image_dir}/file-read-time-all.png"
+file_read_time_one_image = f"{image_dir}/file-read-time-one.png"
 
 # remove any existing prior work
 for filename in [csv_name, parquet_name, sqlite_name]:
@@ -142,8 +146,8 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/file-write-time.png")
-Image(url=f"{image_dir}/file-write-time.png")
+pio.write_image(fig, file_write_time_image)
+Image(url=file_write_time_image)
 
 # +
 # filesize barchart
@@ -168,8 +172,8 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/file-storage-size.png")
-Image(url=f"{image_dir}/file-storage-size.png")
+pio.write_image(fig, file_storage_size_image)
+Image(url=file_storage_size_image)
 
 # +
 # read time barchart (all columns)
@@ -194,8 +198,8 @@ fig.update_layout(
 fig.update_xaxes(range=[0, 2.13])
 fig.update_traces(mode="lines+markers")
 
-pio.write_image(fig, f"{image_dir}/file-read-time-all.png")
-Image(url=f"{image_dir}/file-read-time-all.png")
+pio.write_image(fig, file_read_time_all_image)
+Image(url=file_read_time_all_image)
 
 # +
 # read time barchart (one column)
@@ -220,5 +224,5 @@ fig.update_layout(
     ),
 )
 
-pio.write_image(fig, f"{image_dir}/file-read-time-one.png")
-Image(url=f"{image_dir}/file-read-time-one.png")
+pio.write_image(fig, file_read_time_one_image)
+Image(url=file_read_time_one_image)
