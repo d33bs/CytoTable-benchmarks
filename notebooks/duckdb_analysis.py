@@ -155,10 +155,10 @@ fig = px.line(
 fig.update_layout(
     legend=dict(x=0.01, y=0.98, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
-        size=20,  # global font size
+        size=16,  # global font size
     ),
 )
-fig.update_xaxes(range=[-0.05, 4.3])
+fig.update_xaxes(range=[-0.05, 5.5])
 fig.update_traces(mode="lines+markers")
 
 pio.write_image(fig, f"{image_dir}/join-read-time.png")
