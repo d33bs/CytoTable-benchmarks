@@ -36,7 +36,7 @@ orig_filepath = "./examples/data/all_cellprofiler.sqlite"
 download_file(url, orig_filepath)
 
 
-def double_database_size(filename: str):
+def multiply_database_size(filename: str, multiplier: int = 2):
     """
     A function for doubling the size of the database given a filename.
     Note: unique to CellProfiler SQLite output and accounts for
@@ -63,12 +63,14 @@ def double_database_size(filename: str):
             # Find the maximum id in the existing data
             max_id = max(row["ImageNumber"] for row in rows)
 
-            # Copy the rows and increment the id values
             new_rows = []
-            for row in rows:
-                new_row = dict(row)
-                new_row["ImageNumber"] += max_id
-                new_rows.append(new_row)
+            # use a mutliplier to control how many times the data is multiplied
+            for loop_multiply in range(1, multiplier):
+                # Copy the rows and increment the id values
+                for row in rows:
+                    new_row = dict(row)
+                    new_row["ImageNumber"] += max_id * loop_multiply
+                    new_rows.append(new_row)
 
             # Insert the new rows into the table
             for row in new_rows:
@@ -91,6 +93,6 @@ previous_filepath = orig_filepath
 for _ in range(0, 5):
     new_filepath = orig_filepath.replace(".sqlite", f"-x{number}.sqlite")
     shutil.copy(previous_filepath, new_filepath)
-    double_database_size(filename=new_filepath)
+    multiply_database_size(filename=new_filepath, multiplier=2)
     previous_filepath = new_filepath
     number *= 2
