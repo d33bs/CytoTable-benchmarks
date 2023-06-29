@@ -38,8 +38,8 @@ from IPython.display import Image
 # target file or table names
 image_dir = "images"
 examples_dir = "examples"
-join_read_time_image = f"{image_dir}/join-read-time.png"
-join_mem_size_image = f"{image_dir}/join-memory-size.png"
+join_read_time_image = f"{image_dir}/duckdb-comparisons-join-read-time.png"
+join_mem_size_image = f"{image_dir}/duckdb-comparisons-join-memory-size.png"
 example_files_list = [
     f"{examples_dir}/join_pandas.py",
     f"{examples_dir}/join_duckdb.py",

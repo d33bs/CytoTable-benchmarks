@@ -37,8 +37,8 @@ from utilities import timer
 # target file or table names
 image_dir = "images"
 parquet_name = "example.parquet"
-mem_times_image = f"{image_dir}/mem-read-times.png"
-mem_read_size_image = f"{image_dir}/mem-read-size.png"
+mem_times_image = f"{image_dir}/arrow-comparisons-mem-read-times.png"
+mem_read_size_image = f"{image_dir}/arrow-comparisons-mem-read-size.png"
 
 # remove any existing prior work
 pathlib.Path(parquet_name).unlink(missing_ok=True)
@@ -108,6 +108,7 @@ fig = px.bar(
     width=1300,
 )
 fig.update_layout(
+    legend_title_text="In-memory Read Duration",
     legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=17.5,  # global font size
@@ -134,6 +135,7 @@ fig = px.bar(
     width=1300,
 )
 fig.update_layout(
+    legend_title_text="In-memory Data Size",
     legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size

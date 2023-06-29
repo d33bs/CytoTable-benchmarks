@@ -13,7 +13,7 @@
 #     name: ipyflow
 # ---
 
-# # Why parquet?
+# # Why Parquet?
 #
 # This notebook explores the benefits or drawbacks of using the [parquet](https://parquet.apache.org/docs/) file format relative to other formats such as CSV or SQLite.
 
@@ -38,10 +38,14 @@ csv_name = "example.csv.gz"
 parquet_name = "example.parquet"
 sqlite_name = "example.sqlite"
 sqlite_tbl_name = "tbl_example"
-file_write_time_image = f"{image_dir}/file-write-time.png"
-file_storage_size_image = f"{image_dir}/file-storage-size.png"
-file_read_time_all_image = f"{image_dir}/file-read-time-all.png"
-file_read_time_one_image = f"{image_dir}/file-read-time-one.png"
+file_write_time_image = f"{image_dir}/parquet-comparisons-file-write-time.png"
+file_storage_size_image = f"{image_dir}/parquet-comparisons-file-storage-size.png"
+file_read_time_all_image = (
+    f"{image_dir}/parquet-comparisons-file-read-time-all-columns.png"
+)
+file_read_time_one_image = (
+    f"{image_dir}/parquet-comparisons-file-read-time-one-column.png"
+)
 
 # remove any existing prior work
 for filename in [csv_name, parquet_name, sqlite_name]:
@@ -140,6 +144,7 @@ fig = px.bar(
     color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
+    legend_title_text="File Write Duration",
     legend=dict(x=0.68, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size
@@ -166,6 +171,7 @@ fig = px.bar(
     color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
+    legend_title_text="File Size",
     legend=dict(x=0.72, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size
@@ -190,6 +196,7 @@ fig = px.line(
     color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
+    legend_title_text="File Read Duration (all columns)",
     legend=dict(x=0.01, y=0.98, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size
@@ -203,26 +210,27 @@ Image(url=file_read_time_all_image)
 
 # +
 # read time barchart (one column)
-fig = px.bar(
+fig = px.line(
     df_results,
-    x=[
+    y=[
         "csv_read_time_one (secs)",
         "sqlite_read_time_one (secs)",
         "parquet_read_time_one (secs)",
     ],
-    y="dataframe_shape (rows, cols)",
-    orientation="h",
-    barmode="group",
+    x="dataframe_shape (rows, cols)",
     labels={"dataframe_shape (rows, cols)": "Data Shape", "value": "Seconds"},
     width=1300,
     color_discrete_sequence=px.colors.qualitative.D3,
 )
 fig.update_layout(
-    legend=dict(x=0.65, y=0.02, bgcolor="rgba(255,255,255,0.8)"),
+    legend_title_text="File Read Duration (one column)",
+    legend=dict(x=0.01, y=0.98, bgcolor="rgba(255,255,255,0.8)"),
     font=dict(
         size=20,  # global font size
     ),
 )
+fig.update_xaxes(range=[0, 2.13])
+fig.update_traces(mode="lines+markers")
 
 pio.write_image(fig, file_read_time_one_image)
 Image(url=file_read_time_one_image)
