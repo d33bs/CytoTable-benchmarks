@@ -9,7 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.9.0,<3.11.0"
 jupyterlab = "^3.0.0"
-cytotable = "^0.0.1"
+cytotable = { git = "https://github.com/cytomining/cytotable.git" }
 black = "^23.3.0"
 isort = "^5.12.0"
 jupyterlab-code-formatter = "^2.2.1"
@@ -21,11 +21,12 @@ jupytext = "^1.14.6"
 matplotlib = "^3.7.1"
 plotly = "^5.15.0"
 pympler = "^1.0.1"
-pyarrow = "<=12.0.0"
-duckdb = "<=0.7.1"
+pyarrow = ">=13.0.0"
+duckdb = ">=0.7.1"
 polars = "^0.18.4"
 kaleido = "0.2.1"
 memray = "^1.8.1"
+scalene = "^1.5.31.1"
 
 
 [build-system]
