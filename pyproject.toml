@@ -7,9 +7,9 @@ license = "BSD 3-Clause"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9.0,<3.11.0"
+python = ">=3.9,<3.13"
 jupyterlab = "^3.0.0"
-cytotable = "^0.0.1"
+cytotable = {git = "https://github.com/d33bs/CytoTable.git", branch="gc-object-leaks" }
 black = "^23.3.0"
 isort = "^5.12.0"
 jupyterlab-code-formatter = "^2.2.1"
@@ -21,12 +21,14 @@ jupytext = "^1.14.6"
 matplotlib = "^3.7.1"
 plotly = "^5.15.0"
 pympler = "^1.0.1"
-pyarrow = "<=12.0.0"
-duckdb = "<=0.7.1"
+pyarrow = "^12.0.0"
 polars = "^0.18.4"
 kaleido = "0.2.1"
 memray = "^1.8.1"
-
+duckdb = "^0.8.0"
+parsl = "^2023.4.24"
+cloudpathlib = "^0.13.0"
+objgraph = "^3.6.0"
 
 [build-system]
 requires = ["poetry-core"]

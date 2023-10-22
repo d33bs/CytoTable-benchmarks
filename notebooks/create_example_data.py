@@ -6,7 +6,7 @@
 #       extension: .py
 #       format_name: light
 #       format_version: '1.5'
-#       jupytext_version: 1.14.6
+#       jupytext_version: 1.15.0
 #   kernelspec:
 #     display_name: Python 3 (ipyflow)
 #     language: python
@@ -25,15 +25,36 @@ import pathlib
 import shutil
 import sqlite3
 
+import duckdb
+import numpy as np
+import pyarrow as pa
 import requests
+from pyarrow import csv, parquet
 from utilities import download_file
 # -
 
 url = "https://github.com/cytomining/CytoTable/blob/main/tests/data/cellprofiler/NF1_SchwannCell_data/all_cellprofiler.sqlite?raw=true"
 orig_filepath = "./examples/data/all_cellprofiler.sqlite"
 
+# create a data dir
+pathlib.Path(orig_filepath).parent.mkdir(exist_ok=True)
+
 # download the original file
 download_file(url, orig_filepath)
+
+# create a duplicate file for use in looped testing
+shutil.copy(
+    orig_filepath,
+    orig_filepath.replace("all_cellprofiler", "all_cellprofiler_duplicate"),
+)
+shutil.copy(
+    orig_filepath,
+    orig_filepath.replace("all_cellprofiler", "all_cellprofiler_duplicate_two"),
+)
+shutil.copy(
+    orig_filepath,
+    orig_filepath.replace("all_cellprofiler", "all_cellprofiler_duplicate_three"),
+)
 
 
 def multiply_database_size(filename: str, multiplier: int = 2):
@@ -96,3 +117,47 @@ for _ in range(0, 5):
     multiply_database_size(filename=new_filepath, multiplier=2)
     previous_filepath = new_filepath
     number *= 2
+
+# add example parquet file
+duckdb.connect().execute(
+    f"""
+    /* Install and load sqlite plugin for duckdb */
+    INSTALL sqlite_scanner;
+    LOAD sqlite_scanner;
+
+    /* Copy content from nuclei table to parquet file */
+    COPY (select * from sqlite_scan('{orig_filepath}', 'Per_Nuclei')) 
+    TO '{orig_filepath + '.nuclei.parquet'}'
+    (FORMAT PARQUET);
+    """,
+).close()
+
+# create a duplicate file for use in looped testing
+shutil.copy(
+    orig_filepath + ".nuclei.parquet",
+    orig_filepath + ".nuclei-copy.parquet",
+)
+
+# create randomized number data and related pyarrow table
+tbl_numeric = pa.Table.from_arrays(
+    [pa.array(np.random.rand(1000, 100)[:, i]) for i in range(100)],
+    names=[f"Column_{i}" for i in range(100)],
+)
+# Create a table and write it to file
+parquet.write_table(
+    table=tbl_numeric,
+    where="./examples/data/random_number_data.parquet",
+)
+csv.write_csv(data=tbl_numeric, output_file="./examples/data/random_number_data.csv")
+
+# create a duplicate file for use in looped testing
+shutil.copy(
+    "./examples/data/random_number_data.parquet",
+    "./examples/data/random_number_data-copy.parquet",
+)
+shutil.copy(
+    "./examples/data/random_number_data.csv",
+    "./examples/data/random_number_data-copy.csv",
+)
+
+
