@@ -13,9 +13,9 @@
 #     name: ipyflow
 # ---
 
-# # Why DuckDB?
+# # CytoTable and Pycytominer Performance Comparisons
 #
-# This notebook explores the benefits or drawbacks of using the [DuckDB](https://duckdb.org/) data joins relative to other methods such as Pandas DataFrames.
+# This notebook explores CytoTable and Pycytominer usage with datasets of varying size to help describe performance impacts.
 
 # set ipyflow reactive mode
 # %flow mode reactive
