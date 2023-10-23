@@ -199,8 +199,9 @@ fig.update_layout(
 # fig.update_xaxes(range=[-0.03, 5.2])
 fig.update_traces(mode="lines+markers")
 
-pio.write_image(fig, join_read_time_image)
-Image(url=join_read_time_image)
+fig.write_image(join_read_time_image)
+fig.write_image(join_read_time_image.replace(".png", ".svg"))
+Image(url=join_read_time_image.replace(".png", ".svg"))
 
 # +
 # memory size
@@ -262,5 +263,9 @@ fig.update_layout(
 fig.update_traces(mode="lines+markers")
 
 
-pio.write_image(fig, join_mem_size_image)
-Image(url=join_mem_size_image)
+fig.write_image(join_mem_size_image)
+fig.write_image(join_mem_size_image.replace(".png", ".svg"))
+Image(url=join_mem_size_image.replace(".png", ".svg"))
+# -
+
+
