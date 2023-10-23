@@ -166,7 +166,7 @@ fig = px.line(
     x="data_input_renamed",
     title="CytoTable and Pycytominer<br>SQLite Processing Time Comparison",
     labels={"data_input_renamed": "Input File", "value": "Seconds"},
-    width=700,
+    height=400,
     symbol_sequence=["diamond"],
     color_discrete_sequence=[
         px.colors.qualitative.Vivid[6],
@@ -205,22 +205,7 @@ Image(url=join_read_time_image.replace(".png", ".svg"))
 
 # +
 # memory size
-fig = px.bar(
-    df_results,
-    x=[
-        "cytotable_total_memory (bytes)",
-        "pycytominer_total_memory (bytes)",
-    ],
-    y="data_input_renamed",
-    labels={"data_input_renamed": "Input File", "value": "Bytes"},
-    orientation="h",
-    text="value",
-    barmode="group",
-    width=1300,
-    color_discrete_sequence=px.colors.qualitative.T10,
-)
 
-# read time chart
 fig = px.line(
     df_results,
     y=[
@@ -230,7 +215,7 @@ fig = px.line(
     x="data_input_renamed",
     title="CytoTable and Pycytominer<br>SQLite Total Memory Consumption",
     labels={"data_input_renamed": "Input File", "value": "bytes"},
-    width=700,
+    height=400,
     symbol_sequence=["diamond"],
     color_discrete_sequence=[
         px.colors.qualitative.Vivid[6],
