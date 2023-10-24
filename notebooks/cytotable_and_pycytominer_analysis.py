@@ -24,6 +24,7 @@
 import io
 import itertools
 import json
+import os
 import pathlib
 import subprocess
 import tokenize
@@ -37,6 +38,24 @@ from IPython.display import Image
 # set plotly default theme
 pio.templates.default = "simple_white"
 # -
+
+# observe the virtual env for dependency inheritance with memray
+# from subprocedure calls
+"/".join(
+    subprocess.run(
+        [
+            "which",
+            "memray",
+        ],
+        capture_output=True,
+        check=True,
+    )
+    # decode bytestring as utf-8
+    .stdout.decode("utf-8")
+    # remove personal file structure
+    .split("/")[6:]
+    # replace final newline
+).replace("\n", "")
 
 # target file or table names
 image_dir = "images"
@@ -61,6 +80,7 @@ example_data_list = [
     f"{examples_dir}/data/all_cellprofiler-x64.sqlite",
     f"{examples_dir}/data/all_cellprofiler-x128.sqlite",
     f"{examples_dir}/data/all_cellprofiler-x256.sqlite",
+    f"{examples_dir}/data/all_cellprofiler-x512.sqlite",
 ]
 # format for memray time strings
 tformat = "%Y-%m-%d %H:%M:%S.%f"
@@ -115,7 +135,7 @@ for example_file, example_data in itertools.product(
         {
             # general information about the dataframe
             "file_input": example_file.replace(f"{examples_dir}/", ""),
-            "data_input": example_data.replace(f"{examples_dir}/data/", ""),
+            "data_input": example_data,
             # information about pandas
             "time_duration (secs)": (
                 datetime.strptime(memray_data["metadata"]["end_time"], tformat)
@@ -131,26 +151,58 @@ for example_file, example_data in itertools.product(
 
 df_results = pd.DataFrame(results)
 df_results
+
+# +
+# add columns for data understandability in plots
+
+
+def get_file_size_mb(file_path):
+    """
+    Gather filesize given a file_path
+    """
+    try:
+        return pathlib.Path(file_path).stat().st_size / 1024 / 1024
+    except FileNotFoundError:
+        return None
+
+
+# memory usage in MB
+df_results["total_memory (MB)"] = df_results["total_memory (bytes)"] / 1024 / 1024
+
+# data input size additions for greater context
+df_results["data_input_size_mb"] = df_results["data_input"].apply(get_file_size_mb)
+df_results["data_input_with_size"] = (
+    df_results["data_input"]
+    + " ("
+    + round(df_results["data_input_size_mb"]).astype("int64").astype("str")
+    + " MB)"
+)
+
+# rename data input to simplify
+df_results["data_input_renamed"] = (
+    df_results["data_input_with_size"]
+    .str.replace(f"{examples_dir}/data/", "")
+    .str.replace("all_cellprofiler", "input")
+)
+df_results
 # -
 
-df_results["data_input_renamed"] = df_results["data_input"].str.replace(
-    "all_cellprofiler", "input"
-)
+# build cols for split reference in the plot
 df_results["cytotable_time_duration (secs)"] = df_results[
     df_results["file_input"] == "cytotable_convert_nf1.py"
 ]["time_duration (secs)"]
-df_results["cytotable_total_memory (bytes)"] = df_results[
+df_results["cytotable_total_memory (MB)"] = df_results[
     df_results["file_input"] == "cytotable_convert_nf1.py"
-]["total_memory (bytes)"]
+]["total_memory (MB)"]
 df_results["pycytominer_time_duration (secs)"] = df_results[
     df_results["file_input"] == "pycytominer_merge_nf1.py"
 ]["time_duration (secs)"]
-df_results["pycytominer_total_memory (bytes)"] = df_results[
+df_results["pycytominer_total_memory (MB)"] = df_results[
     df_results["file_input"] == "pycytominer_merge_nf1.py"
-]["total_memory (bytes)"]
+]["total_memory (MB)"]
 df_results = (
     df_results.apply(lambda x: pd.Series(x.dropna().values))
-    .drop(["file_input", "time_duration (secs)", "total_memory (bytes)"], axis=1)
+    .drop(["file_input", "time_duration (secs)", "total_memory (MB)"], axis=1)
     .dropna()
 )
 df_results
@@ -164,9 +216,10 @@ fig = px.line(
         "pycytominer_time_duration (secs)",
     ],
     x="data_input_renamed",
-    title="CytoTable and Pycytominer<br>SQLite Processing Time Comparison",
+    title="CytoTable and Pycytominer SQLite Processing Time Comparison",
     labels={"data_input_renamed": "Input File", "value": "Seconds"},
-    height=400,
+    height=500,
+    width=900,
     symbol_sequence=["diamond"],
     color_discrete_sequence=[
         px.colors.qualitative.Vivid[6],
@@ -209,13 +262,14 @@ Image(url=join_read_time_image.replace(".png", ".svg"))
 fig = px.line(
     df_results,
     y=[
-        "cytotable_total_memory (bytes)",
-        "pycytominer_total_memory (bytes)",
+        "cytotable_total_memory (MB)",
+        "pycytominer_total_memory (MB)",
     ],
     x="data_input_renamed",
-    title="CytoTable and Pycytominer<br>SQLite Total Memory Consumption",
+    title="CytoTable and Pycytominer SQLite Total Memory Consumption",
     labels={"data_input_renamed": "Input File", "value": "bytes"},
-    height=400,
+    height=500,
+    width=900,
     symbol_sequence=["diamond"],
     color_discrete_sequence=[
         px.colors.qualitative.Vivid[6],
@@ -251,3 +305,6 @@ fig.update_traces(mode="lines+markers")
 fig.write_image(join_mem_size_image)
 fig.write_image(join_mem_size_image.replace(".png", ".svg"))
 Image(url=join_mem_size_image.replace(".png", ".svg"))
+# -
+
+
