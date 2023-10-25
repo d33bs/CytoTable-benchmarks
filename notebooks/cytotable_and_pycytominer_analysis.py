@@ -167,7 +167,9 @@ def get_file_size_mb(file_path):
 
 
 # memory usage in MB
-df_results["total_memory (MB)"] = df_results["total_memory (bytes)"] / 1024 / 1024
+df_results["total_memory (GB)"] = (
+    df_results["total_memory (bytes)"] / 1024 / 1024 / 1024
+)
 
 # data input size additions for greater context
 df_results["data_input_size_mb"] = df_results["data_input"].apply(get_file_size_mb)
@@ -191,18 +193,18 @@ df_results
 df_results["cytotable_time_duration (secs)"] = df_results[
     df_results["file_input"] == "cytotable_convert_nf1.py"
 ]["time_duration (secs)"]
-df_results["cytotable_total_memory (MB)"] = df_results[
+df_results["cytotable_total_memory (GB)"] = df_results[
     df_results["file_input"] == "cytotable_convert_nf1.py"
-]["total_memory (MB)"]
+]["total_memory (GB)"]
 df_results["pycytominer_time_duration (secs)"] = df_results[
     df_results["file_input"] == "pycytominer_merge_nf1.py"
 ]["time_duration (secs)"]
-df_results["pycytominer_total_memory (MB)"] = df_results[
+df_results["pycytominer_total_memory (GB)"] = df_results[
     df_results["file_input"] == "pycytominer_merge_nf1.py"
-]["total_memory (MB)"]
+]["total_memory (GB)"]
 df_results = (
     df_results.apply(lambda x: pd.Series(x.dropna().values))
-    .drop(["file_input", "time_duration (secs)", "total_memory (MB)"], axis=1)
+    .drop(["file_input", "time_duration (secs)", "total_memory (GB)"], axis=1)
     .dropna()
 )
 df_results
@@ -262,12 +264,12 @@ Image(url=join_read_time_image.replace(".png", ".svg"))
 fig = px.line(
     df_results,
     y=[
-        "cytotable_total_memory (MB)",
-        "pycytominer_total_memory (MB)",
+        "cytotable_total_memory (GB)",
+        "pycytominer_total_memory (GB)",
     ],
     x="data_input_renamed",
     title="CytoTable and Pycytominer SQLite Total Memory Consumption",
-    labels={"data_input_renamed": "Input File", "value": "bytes"},
+    labels={"data_input_renamed": "Input File", "value": "Gigabytes (GB)"},
     height=500,
     width=900,
     symbol_sequence=["diamond"],
@@ -279,8 +281,8 @@ fig = px.line(
 
 # rename the lines for the legend
 newnames = {
-    "cytotable_total_memory (bytes)": "CytoTable",
-    "pycytominer_total_memory (bytes)": "Pycytominer",
+    "cytotable_total_memory (GB)": "CytoTable",
+    "pycytominer_total_memory (GB)": "Pycytominer",
 }
 # referenced from: https://stackoverflow.com/a/64378982
 fig.for_each_trace(
@@ -305,6 +307,3 @@ fig.update_traces(mode="lines+markers")
 fig.write_image(join_mem_size_image)
 fig.write_image(join_mem_size_image.replace(".png", ".svg"))
 Image(url=join_mem_size_image.replace(".png", ".svg"))
-# -
-
-
