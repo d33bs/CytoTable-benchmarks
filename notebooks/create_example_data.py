@@ -28,7 +28,6 @@ import pandas as pd
 import pyarrow as pa
 from pyarrow import csv, parquet
 from utilities import download_file
-
 # -
 
 url = "https://github.com/cytomining/CytoTable/blob/main/tests/data/cellprofiler/NF1_SchwannCell_data/all_cellprofiler.sqlite?raw=true"
@@ -55,6 +54,10 @@ shutil.copy(
     orig_filepath_sqlite.replace(
         "all_cellprofiler", "all_cellprofiler_duplicate_three"
     ),
+)
+shutil.copy(
+    orig_filepath_sqlite,
+    orig_filepath_sqlite.replace("all_cellprofiler", "all_cellprofiler_x1"),
 )
 
 

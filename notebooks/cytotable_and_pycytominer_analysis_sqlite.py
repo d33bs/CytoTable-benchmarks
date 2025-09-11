@@ -78,7 +78,7 @@ example_files_list = [
     f"{examples_dir}/pycytominer_merge_nf1_sqlite.py",
 ]
 example_data_list = [
-    f"{examples_dir}/data/all_cellprofiler.sqlite",
+    f"{examples_dir}/data/all_cellprofiler-x1.sqlite",
     f"{examples_dir}/data/all_cellprofiler-x2.sqlite",
     f"{examples_dir}/data/all_cellprofiler-x4.sqlite",
     f"{examples_dir}/data/all_cellprofiler-x8.sqlite",
